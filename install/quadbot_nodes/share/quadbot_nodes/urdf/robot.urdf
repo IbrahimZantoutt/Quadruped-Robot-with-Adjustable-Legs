@@ -48,10 +48,33 @@
         </collision>
     </link>
 
-    <joint name="leg1_main" type="fixed">
+    <!-- front-left shoulder: body-colored fixed stub that pushes the front leg forward (+Y) -->
+    <link name="leg1_shoulder">
+        <visual>
+            <origin xyz="0 0.04 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.08 0.11 0.08"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0.04 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.08 0.08 0.08"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg1_shoulderConnection" type="fixed">
         <parent link="base_link"/>
-        <child link="leg1_mainjoint"/>
+        <child link="leg1_shoulder"/>
         <origin xyz="0.1 0.15 0.69" rpy="0 0 0"/>
+    </joint>
+
+    <joint name="leg1_main" type="fixed">
+        <parent link="leg1_shoulder"/>
+        <child link="leg1_mainjoint"/>
+        <origin xyz="0.06 0.04 0" rpy="0 0 0"/>
     </joint>
 
     <!-- thigh: hangs down from the hip pivot, swings on the hip joint -->
@@ -189,6 +212,516 @@
     <joint name="leg1_wheelConnection" type="continuous">
         <parent link="leg1_3link"/>
         <child link="leg1_wheel"/>
+        <origin xyz="0 0 -0.13" rpy="-1.5707 0 -1.5707"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+
+    <!-- leg2 back left -->
+
+    <!-- hip pivot: fixed to the body corner -->
+    <link name="leg2_mainjoint">
+        <visual>
+            <geometry>
+                <sphere radius="0.04"/>
+            </geometry>
+            <material name="green"/>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.04"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg2_main" type="fixed">
+        <parent link="base_link"/>
+        <child link="leg2_mainjoint"/>
+        <origin xyz="0.1 -0.15 0.69" rpy="0 0 0"/>
+    </joint>
+
+    <!-- thigh: hangs down from the hip pivot, swings on the hip joint -->
+    <link name="leg2_mainlink">
+        <visual>
+            <origin xyz="0 0 -0.15" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.25" radius="0.03"/>
+            </geometry>
+            <material name="brown"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 -0.13" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.2" radius="0.03"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg2_mainConnection" type="revolute">
+        <parent link="leg2_mainjoint"/>
+        <child link="leg2_mainlink"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="-1.57" upper="0.8" effort="10" velocity="1"/>
+    </joint>
+
+    <!-- knee pivot: fixed to the bottom of the thigh -->
+    <link name="leg2_2joint">
+        <visual>
+            <geometry>
+                <sphere radius="0.04"/>
+            </geometry>
+            <material name="green"/>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.04"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg2_2Connection" type="fixed">
+        <parent link="leg2_mainlink"/>
+        <child link="leg2_2joint"/>
+        <origin xyz="0 0 -0.3" rpy="0 0 0"/>
+    </joint>
+
+    <!-- shin: hangs down from the knee pivot, swings on the knee joint -->
+    <link name="leg2_2link">
+        <visual>
+            <origin xyz="0 0 -0.13" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.25" radius="0.03"/>
+            </geometry>
+            <material name="brown"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 -0.13" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.25" radius="0.03"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg2_2Rotation" type="revolute">
+        <parent link="leg2_2joint"/>
+        <child link="leg2_2link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="-1.57" upper="1.57" effort="10" velocity="1"/>
+    </joint>
+
+    <!-- ankle pivot: fixed to the bottom of the shin -->
+    <link name="leg2_3joint">
+        <visual>
+            <geometry>
+                <sphere radius="0.04"/>
+            </geometry>
+            <material name="green"/>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.04"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg2_3Connection" type="fixed">
+        <parent link="leg2_2link"/>
+        <child link="leg2_3joint"/>
+        <origin xyz="0 0 -0.28" rpy="0 0 0"/>
+    </joint>
+
+    <!-- foot: short stub hanging from the ankle pivot -->
+    <link name="leg2_3link">
+        <visual>
+            <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.07" radius="0.02"/>
+            </geometry>
+            <material name="brown"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.07" radius="0.02"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg2_3Rotation" type="revolute">
+        <parent link="leg2_3joint"/>
+        <child link="leg2_3link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="-1.57" upper="1.57" effort="10" velocity="1"/>
+    </joint>
+
+    <!-- wheel: spins freely about its axle at the end of the foot -->
+    <link name="leg2_wheel">
+        <visual>
+            <geometry>
+                <cylinder radius="0.049" length="0.035"/>
+            </geometry>
+            <material name="teal"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.049" length="0.035"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg2_wheelConnection" type="continuous">
+        <parent link="leg2_3link"/>
+        <child link="leg2_wheel"/>
+        <origin xyz="0 0 -0.13" rpy="-1.5707 0 -1.5707"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <!-- leg3 front right -->
+
+    <!-- hip pivot: fixed to the body corner -->
+    <link name="leg3_mainjoint">
+        <visual>
+            <geometry>
+                <sphere radius="0.04"/>
+            </geometry>
+            <material name="green"/>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.04"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- front-right shoulder: body-colored fixed stub that pushes the front leg forward (+Y) -->
+    <link name="leg3_shoulder">
+        <visual>
+            <origin xyz="0 0.04 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.08 0.11 0.08"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0.04 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.08 0.08 0.08"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg3_shoulderConnection" type="fixed">
+        <parent link="base_link"/>
+        <child link="leg3_shoulder"/>
+        <origin xyz="-0.1 0.15 0.69" rpy="0 0 0"/>
+    </joint>
+
+    <joint name="leg3_main" type="fixed">
+        <parent link="leg3_shoulder"/>
+        <child link="leg3_mainjoint"/>
+        <origin xyz="-0.06 0.04 0" rpy="0 0 0"/>
+    </joint>
+
+    <!-- thigh: hangs down from the hip pivot, swings on the hip joint -->
+    <link name="leg3_mainlink">
+        <visual>
+            <origin xyz="0 0 -0.15" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.25" radius="0.03"/>
+            </geometry>
+            <material name="brown"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 -0.13" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.2" radius="0.03"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg3_mainConnection" type="revolute">
+        <parent link="leg3_mainjoint"/>
+        <child link="leg3_mainlink"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="-1.57" upper="1.57" effort="10" velocity="1"/>
+    </joint>
+
+    <!-- knee pivot: fixed to the bottom of the thigh -->
+    <link name="leg3_2joint">
+        <visual>
+            <geometry>
+                <sphere radius="0.04"/>
+            </geometry>
+            <material name="green"/>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.04"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg3_2Connection" type="fixed">
+        <parent link="leg3_mainlink"/>
+        <child link="leg3_2joint"/>
+        <origin xyz="0 0 -0.3" rpy="0 0 0"/>
+    </joint>
+
+    <!-- shin: hangs down from the knee pivot, swings on the knee joint -->
+    <link name="leg3_2link">
+        <visual>
+            <origin xyz="0 0 -0.13" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.25" radius="0.03"/>
+            </geometry>
+            <material name="brown"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 -0.13" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.25" radius="0.03"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg3_2Rotation" type="revolute">
+        <parent link="leg3_2joint"/>
+        <child link="leg3_2link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="-1.57" upper="1.57" effort="10" velocity="1"/>
+    </joint>
+
+    <!-- ankle pivot: fixed to the bottom of the shin -->
+    <link name="leg3_3joint">
+        <visual>
+            <geometry>
+                <sphere radius="0.04"/>
+            </geometry>
+            <material name="green"/>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.04"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg3_3Connection" type="fixed">
+        <parent link="leg3_2link"/>
+        <child link="leg3_3joint"/>
+        <origin xyz="0 0 -0.28" rpy="0 0 0"/>
+    </joint>
+
+    <!-- foot: short stub hanging from the ankle pivot -->
+    <link name="leg3_3link">
+        <visual>
+            <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.07" radius="0.02"/>
+            </geometry>
+            <material name="brown"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.07" radius="0.02"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg3_3Rotation" type="revolute">
+        <parent link="leg3_3joint"/>
+        <child link="leg3_3link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="-1.57" upper="1.57" effort="10" velocity="1"/>
+    </joint>
+
+    <!-- wheel: spins freely about its axle at the end of the foot -->
+    <link name="leg3_wheel">
+        <visual>
+            <geometry>
+                <cylinder radius="0.049" length="0.035"/>
+            </geometry>
+            <material name="teal"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.049" length="0.035"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg3_wheelConnection" type="continuous">
+        <parent link="leg3_3link"/>
+        <child link="leg3_wheel"/>
+        <origin xyz="0 0 -0.13" rpy="-1.5707 0 -1.5707"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <!-- leg4 back right -->
+
+    <!-- hip pivot: fixed to the body corner -->
+    <link name="leg4_mainjoint">
+        <visual>
+            <geometry>
+                <sphere radius="0.04"/>
+            </geometry>
+            <material name="green"/>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.04"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg4_main" type="fixed">
+        <parent link="base_link"/>
+        <child link="leg4_mainjoint"/>
+        <origin xyz="-0.1 -0.15 0.69" rpy="0 0 0"/>
+    </joint>
+
+    <!-- thigh: hangs down from the hip pivot, swings on the hip joint -->
+    <link name="leg4_mainlink">
+        <visual>
+            <origin xyz="0 0 -0.15" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.25" radius="0.03"/>
+            </geometry>
+            <material name="brown"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 -0.13" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.2" radius="0.03"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg4_mainConnection" type="revolute">
+        <parent link="leg4_mainjoint"/>
+        <child link="leg4_mainlink"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="-1.57" upper="0.8" effort="10" velocity="1"/>
+    </joint>
+
+    <!-- knee pivot: fixed to the bottom of the thigh -->
+    <link name="leg4_2joint">
+        <visual>
+            <geometry>
+                <sphere radius="0.04"/>
+            </geometry>
+            <material name="green"/>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.04"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg4_2Connection" type="fixed">
+        <parent link="leg4_mainlink"/>
+        <child link="leg4_2joint"/>
+        <origin xyz="0 0 -0.3" rpy="0 0 0"/>
+    </joint>
+
+    <!-- shin: hangs down from the knee pivot, swings on the knee joint -->
+    <link name="leg4_2link">
+        <visual>
+            <origin xyz="0 0 -0.13" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.25" radius="0.03"/>
+            </geometry>
+            <material name="brown"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 -0.13" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.25" radius="0.03"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg4_2Rotation" type="revolute">
+        <parent link="leg4_2joint"/>
+        <child link="leg4_2link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="-1.57" upper="1.57" effort="10" velocity="1"/>
+    </joint>
+
+    <!-- ankle pivot: fixed to the bottom of the shin -->
+    <link name="leg4_3joint">
+        <visual>
+            <geometry>
+                <sphere radius="0.04"/>
+            </geometry>
+            <material name="green"/>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.04"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg4_3Connection" type="fixed">
+        <parent link="leg4_2link"/>
+        <child link="leg4_3joint"/>
+        <origin xyz="0 0 -0.28" rpy="0 0 0"/>
+    </joint>
+
+    <!-- foot: short stub hanging from the ankle pivot -->
+    <link name="leg4_3link">
+        <visual>
+            <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.07" radius="0.02"/>
+            </geometry>
+            <material name="brown"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.07" radius="0.02"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg4_3Rotation" type="revolute">
+        <parent link="leg4_3joint"/>
+        <child link="leg4_3link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="-1.57" upper="1.57" effort="10" velocity="1"/>
+    </joint>
+
+    <!-- wheel: spins freely about its axle at the end of the foot -->
+    <link name="leg4_wheel">
+        <visual>
+            <geometry>
+                <cylinder radius="0.049" length="0.035"/>
+            </geometry>
+            <material name="teal"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.049" length="0.035"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg4_wheelConnection" type="continuous">
+        <parent link="leg4_3link"/>
+        <child link="leg4_wheel"/>
         <origin xyz="0 0 -0.13" rpy="-1.5707 0 -1.5707"/>
         <axis xyz="0 0 1"/>
     </joint>
