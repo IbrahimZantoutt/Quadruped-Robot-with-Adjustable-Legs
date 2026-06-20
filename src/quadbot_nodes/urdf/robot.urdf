@@ -75,7 +75,7 @@
         <parent link="leg1_mainjoint"/>
         <child link="leg1_mainlink"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <axis xyz="0 0 1"/>
+        <axis xyz="1 0 0"/>
         <limit lower="-1.57" upper="1.57" effort="10" velocity="1"/>
     </joint>
 
@@ -97,7 +97,7 @@
     <joint name="leg1_2Connection" type="fixed">
         <parent link="leg1_mainlink"/>
         <child link="leg1_2joint"/>
-        <origin xyz="0 0 -0.5" rpy="0 0 0"/>
+        <origin xyz="0 0 -0.3" rpy="0 0 0"/>
     </joint>
 
     <!-- shin: hangs down from the knee pivot, swings on the knee joint -->
@@ -121,7 +121,7 @@
         <parent link="leg1_2joint"/>
         <child link="leg1_2link"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <axis xyz="0 0 1"/>
+        <axis xyz="1 0 0"/>
         <limit lower="-1.57" upper="1.57" effort="10" velocity="1"/>
     </joint>
 
@@ -143,22 +143,22 @@
     <joint name="leg1_3Connection" type="fixed">
         <parent link="leg1_2link"/>
         <child link="leg1_3joint"/>
-        <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+        <origin xyz="0 0 -0.28" rpy="0 0 0"/>
     </joint>
 
     <!-- foot: short stub hanging from the ankle pivot -->
     <link name="leg1_3link">
         <visual>
-            <origin xyz="0 0 -0.01" rpy="0 0 0"/>
+            <origin xyz="0 0 -0.05" rpy="0 0 0"/>
             <geometry>
-                <cylinder length="0.02" radius="0.02"/>
+                <cylinder length="0.07" radius="0.02"/>
             </geometry>
             <material name="brown"/>
         </visual>
         <collision>
-            <origin xyz="0 0 -0.01" rpy="0 0 0"/>
+            <origin xyz="0 0 -0.05" rpy="0 0 0"/>
             <geometry>
-                <cylinder length="0.02" radius="0.02"/>
+                <cylinder length="0.07" radius="0.02"/>
             </geometry>
         </collision>
     </link>
@@ -167,7 +167,7 @@
         <parent link="leg1_3joint"/>
         <child link="leg1_3link"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <axis xyz="0 1 0"/>
+        <axis xyz="1 0 0"/>
         <limit lower="-1.57" upper="1.57" effort="10" velocity="1"/>
     </joint>
 
@@ -189,7 +189,7 @@
     <joint name="leg1_wheelConnection" type="continuous">
         <parent link="leg1_3link"/>
         <child link="leg1_wheel"/>
-        <origin xyz="0 0 -0.02" rpy="-1.5707 0 -1.5707"/>
+        <origin xyz="0 0 -0.13" rpy="-1.5707 0 -1.5707"/>
         <axis xyz="0 0 1"/>
     </joint>
 
