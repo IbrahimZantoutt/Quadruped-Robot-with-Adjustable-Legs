@@ -1,0 +1,4 @@
+source;share/quadbot_nodes/local_setup.bash
+source;share/quadbot_nodes/local_setup.dsv
+source;share/quadbot_nodes/local_setup.sh
+source;share/quadbot_nodes/local_setup.zsh
