@@ -1,0 +1,29 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    # publishes /joint_states from the simulated joint positions (so RViz/TF work)
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    # direct-position controller: you publish target angles, joints go there
+    position_controller:
+      type: position_controllers/JointGroupPositionController
+
+# the order of joints here == the order of values you publish on
+# /position_controller/commands  (std_msgs/Float64MultiArray)
+position_controller:
+  ros__parameters:
+    joints:
+      - leg1_mainConnection   # [0]  front-left  hip
+      - leg1_2Rotation        # [1]  front-left  knee
+      - leg1_3Rotation        # [2]  front-left  ankle
+      - leg2_mainConnection   # [3]  back-left   hip
+      - leg2_2Rotation        # [4]  back-left   knee
+      - leg2_3Rotation        # [5]  back-left   ankle
+      - leg3_mainConnection   # [6]  front-right hip
+      - leg3_2Rotation        # [7]  front-right knee
+      - leg3_3Rotation        # [8]  front-right ankle
+      - leg4_mainConnection   # [9]  back-right  hip
+      - leg4_2Rotation        # [10] back-right  knee
+      - leg4_3Rotation        # [11] back-right  ankle

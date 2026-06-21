@@ -1,0 +1,25 @@
+controller_manager:
+  ros_parameters:
+    update_rate: 100
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    position_controller:
+      type: position_controllers/JointGroupPositionController
+
+position_controller:
+  ros_parameters:
+    joints:
+      - leg1_mainConnection
+      - leg1_2Rotation
+      - leg1_3Rotation
+      - leg2_mainConnection
+      - leg2_2Rotation
+      - leg2_3Rotation
+      - leg3_mainConnection
+      - leg3_2Rotation
+      - leg3_3Rotation
+      - leg4_mainConnection
+      - leg4_2Rotation
+      - leg4_3Rotation
