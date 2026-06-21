@@ -10,6 +10,9 @@ controller_manager:
     position_controller:
       type: position_controllers/JointGroupPositionController
 
+    velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController
+
 # the order of joints here == the order of values you publish on
 # /position_controller/commands  (std_msgs/Float64MultiArray)
 position_controller:
@@ -27,3 +30,13 @@ position_controller:
       - leg4_mainConnection   # [9]  back-right  hip
       - leg4_2Rotation        # [10] back-right  knee
       - leg4_3Rotation        # [11] back-right  ankle
+
+# the order of joints here == the order of values you publish on
+# /velocity_controller/commands  (std_msgs/Float64MultiArray), rad/s
+velocity_controller:
+  ros__parameters:
+    joints:
+      - leg1_wheelConnection   # [0] front-left  wheel
+      - leg2_wheelConnection   # [1] back-left   wheel
+      - leg3_wheelConnection   # [2] front-right wheel
+      - leg4_wheelConnection   # [3] back-right  wheel

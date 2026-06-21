@@ -87,6 +87,11 @@ def generate_launch_description():
         arguments=['position_controller'], output='screen',
     )
 
+    velocity_controller = Node(
+        package='controller_manager', executable='spawner',
+        arguments=['velocity_controller'], output='screen',
+    )
+
     # Once the position controller is active, command the home pose. The
     # controller keeps re-applying this every cycle, so the joints are held
     # rigidly — gravity can't bend them (this is what stops the ankle sagging).
@@ -94,7 +99,16 @@ def generate_launch_description():
         cmd=['ros2', 'topic', 'pub', '--rate', '10', '--times', '10',
              '/position_controller/commands',
              'std_msgs/msg/Float64MultiArray',
-             '{data: [' + ', '.join(str(a) for a in SAFE_HOME_ANGLES) + ']}'],
+             '{data: [' + ', '.join(str(a) for a in HOME_ANGLES) + ']}'],
+        output='screen',
+    )
+
+    # Hold the wheels at 0 rad/s so they brake instead of free-rolling.
+    wheel_hold = ExecuteProcess(
+        cmd=['ros2', 'topic', 'pub', '--rate', '10', '--times', '10',
+             '/velocity_controller/commands',
+             'std_msgs/msg/Float64MultiArray',
+             '{data: [0.0, 0.0, 0.0, 0.0]}'],
         output='screen',
     )
 
@@ -108,5 +122,7 @@ def generate_launch_description():
         RegisterEventHandler(OnProcessExit(
             target_action=joint_state_broadcaster, on_exit=[position_controller])),
         RegisterEventHandler(OnProcessExit(
-            target_action=position_controller, on_exit=[home_pose])),
+            target_action=position_controller, on_exit=[velocity_controller])),
+        RegisterEventHandler(OnProcessExit(
+            target_action=velocity_controller, on_exit=[home_pose, wheel_hold])),
     ])

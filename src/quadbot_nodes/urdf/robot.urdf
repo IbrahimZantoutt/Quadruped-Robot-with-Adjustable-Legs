@@ -935,6 +935,27 @@
             <state_interface name="position"/>
             <state_interface name="velocity"/>
         </joint>
+
+        <joint name="leg1_wheelConnection">
+            <command_interface name="velocity"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+        <joint name="leg2_wheelConnection">
+            <command_interface name="velocity"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+        <joint name="leg3_wheelConnection">
+            <command_interface name="velocity"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+        <joint name="leg4_wheelConnection">
+            <command_interface name="velocity"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
     </ros2_control>
 
     <!-- Loads the controller_manager inside Gazebo and reads our YAML. -->
