@@ -32,6 +32,17 @@ HOME_ANGLES = [
     -0.6, 1.2, -0.4,   # leg4 back-right
 ]
 
+# Leg joints in the same order as HOME_ANGLES / controllers.yaml.
+LEG_JOINTS = [
+    'leg1_mainConnection', 'leg1_2Rotation', 'leg1_3Rotation',
+    'leg2_mainConnection', 'leg2_2Rotation', 'leg2_3Rotation',
+    'leg3_mainConnection', 'leg3_2Rotation', 'leg3_3Rotation',
+    'leg4_mainConnection', 'leg4_2Rotation', 'leg4_3Rotation',
+]
+
+# Seconds the startup move into the home pose should take (smooth, not a snap).
+HOME_MOVE_TIME = 2
+
 # Height to spawn the base at. Natural standing height (straight legs) ~0.07 m,
 # so this drops it ~3 cm onto its wheels. Raise it if you use a crouched pose.
 SPAWN_Z = 0.11
@@ -82,9 +93,9 @@ def generate_launch_description():
         arguments=['joint_state_broadcaster'], output='screen',
     )
 
-    position_controller = Node(
+    trajectory_controller = Node(
         package='controller_manager', executable='spawner',
-        arguments=['position_controller'], output='screen',
+        arguments=['joint_trajectory_controller'], output='screen',
     )
 
     velocity_controller = Node(
@@ -92,14 +103,18 @@ def generate_launch_description():
         arguments=['velocity_controller'], output='screen',
     )
 
-    # Once the position controller is active, command the home pose. The
-    # controller keeps re-applying this every cycle, so the joints are held
-    # rigidly — gravity can't bend them (this is what stops the ankle sagging).
+    # Once the trajectory controller is active, send ONE trajectory that moves
+    # the legs from their spawn pose to the home pose over HOME_MOVE_TIME seconds
+    # (smooth, interpolated). JTC then holds the final pose rigidly.
+    home_traj = (
+        '{joint_names: [' + ', '.join(LEG_JOINTS) + '], '
+        'points: [{positions: [' + ', '.join(str(a) for a in SAFE_HOME_ANGLES) + '], '
+        'time_from_start: {sec: ' + str(HOME_MOVE_TIME) + ', nanosec: 0}}]}'
+    )
     home_pose = ExecuteProcess(
-        cmd=['ros2', 'topic', 'pub', '--rate', '10', '--times', '10',
-             '/position_controller/commands',
-             'std_msgs/msg/Float64MultiArray',
-             '{data: [' + ', '.join(str(a) for a in SAFE_HOME_ANGLES) + ']}'],
+        cmd=['ros2', 'topic', 'pub', '--once',
+             '/joint_trajectory_controller/joint_trajectory',
+             'trajectory_msgs/msg/JointTrajectory', home_traj],
         output='screen',
     )
 
@@ -120,9 +135,9 @@ def generate_launch_description():
         RegisterEventHandler(OnProcessExit(
             target_action=spawn_entity, on_exit=[joint_state_broadcaster])),
         RegisterEventHandler(OnProcessExit(
-            target_action=joint_state_broadcaster, on_exit=[position_controller])),
+            target_action=joint_state_broadcaster, on_exit=[trajectory_controller])),
         RegisterEventHandler(OnProcessExit(
-            target_action=position_controller, on_exit=[velocity_controller])),
+            target_action=trajectory_controller, on_exit=[velocity_controller])),
         RegisterEventHandler(OnProcessExit(
             target_action=velocity_controller, on_exit=[home_pose, wheel_hold])),
     ])

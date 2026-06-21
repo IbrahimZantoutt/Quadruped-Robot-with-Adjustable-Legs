@@ -6,9 +6,16 @@ controller_manager:
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
-    # direct-position controller: you publish target angles, joints go there
+    # direct-position controller: snaps joints to published angles immediately.
+    # (kept available, but bringup uses the trajectory controller below instead)
     position_controller:
       type: position_controllers/JointGroupPositionController
+
+    # trajectory controller: you publish a target pose + duration and it
+    # interpolates the legs smoothly. Owns the same position interface as
+    # position_controller, so only ONE of them can be active at a time.
+    joint_trajectory_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
 
     velocity_controller:
       type: velocity_controllers/JointGroupVelocityController
@@ -30,6 +37,30 @@ position_controller:
       - leg4_mainConnection   # [9]  back-right  hip
       - leg4_2Rotation        # [10] back-right  knee
       - leg4_3Rotation        # [11] back-right  ankle
+
+# smooth motion: publish a trajectory_msgs/JointTrajectory to
+# /joint_trajectory_controller/joint_trajectory (target positions + a
+# time_from_start duration), and it interpolates the legs to get there.
+joint_trajectory_controller:
+  ros__parameters:
+    joints:
+      - leg1_mainConnection
+      - leg1_2Rotation
+      - leg1_3Rotation
+      - leg2_mainConnection
+      - leg2_2Rotation
+      - leg2_3Rotation
+      - leg3_mainConnection
+      - leg3_2Rotation
+      - leg3_3Rotation
+      - leg4_mainConnection
+      - leg4_2Rotation
+      - leg4_3Rotation
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
 
 # the order of joints here == the order of values you publish on
 # /velocity_controller/commands  (std_msgs/Float64MultiArray), rad/s

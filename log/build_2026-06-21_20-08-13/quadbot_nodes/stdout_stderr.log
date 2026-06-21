@@ -1,0 +1,7 @@
+[ 50%] Building CXX object CMakeFiles/JointMover.dir/src/JointMover.cpp.o
+/home/ibrahim/Quadbot/src/quadbot_nodes/src/JointMover.cpp:45:3: error: ‘pose_1’ does not name a type
+   45 |   pose_1 ={
+      |   ^~~~~~
+gmake[2]: *** [CMakeFiles/JointMover.dir/build.make:76: CMakeFiles/JointMover.dir/src/JointMover.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/JointMover.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

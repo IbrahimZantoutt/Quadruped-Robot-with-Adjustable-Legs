@@ -1,0 +1,9 @@
+[0.020s] Invoking command in '/home/ibrahim/Quadbot/build/quadbot_nodes': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ibrahim/RobotArm/install/main_arm_package:/home/ibrahim/RobotArm/install/action_interfaces:/opt/ros/humble /usr/bin/cmake --build /home/ibrahim/Quadbot/build/quadbot_nodes -- -j16 -l16
+[0.124s] [ 50%] Building CXX object CMakeFiles/JointMover.dir/src/JointMover.cpp.o
+[3.794s] /home/ibrahim/Quadbot/src/quadbot_nodes/src/JointMover.cpp:45:3: error: ‘pose_1’ does not name a type
+[3.794s]    45 |   pose_1 ={
+[3.794s]       |   ^~~~~~
+[5.018s] gmake[2]: *** [CMakeFiles/JointMover.dir/build.make:76: CMakeFiles/JointMover.dir/src/JointMover.cpp.o] Error 1
+[5.018s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/JointMover.dir/all] Error 2
+[5.019s] gmake: *** [Makefile:146: all] Error 2
+[5.023s] Invoked command in '/home/ibrahim/Quadbot/build/quadbot_nodes' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ibrahim/RobotArm/install/main_arm_package:/home/ibrahim/RobotArm/install/action_interfaces:/opt/ros/humble /usr/bin/cmake --build /home/ibrahim/Quadbot/build/quadbot_nodes -- -j16 -l16
