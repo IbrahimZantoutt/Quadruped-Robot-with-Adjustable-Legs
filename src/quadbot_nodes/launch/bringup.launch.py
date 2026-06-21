@@ -18,11 +18,18 @@ from ament_index_python.packages import get_package_share_directory
 #   each: [hip(main), knee(2), ankle(3)]
 # All zeros = legs straight down (robot stands tall on its wheels).
 # ============================================================================
+SAFE_HOME_ANGLES = [
+    0.6, 0.0, 0.0,   # leg1 front-left
+    -0.6, 0.0, 0.0,   # leg2 back-left
+    0.6, 0.0, 0.0,   # leg3 front-right
+    -0.6, 0.0, 0.0,   # leg4 back-right
+]
+
 HOME_ANGLES = [
-    0.0, 0.0, 0.0,   # leg1 front-left
-    0.0, 0.0, 0.0,   # leg2 back-left
-    0.0, 0.0, 0.0,   # leg3 front-right
-    0.0, 0.0, 0.0,   # leg4 back-right
+    0.6, -1.2, 0.4,   # leg1 front-left
+    -0.6, 1.2, -0.4,   # leg2 back-left
+    0.6, -1.2, 0.4,   # leg3 front-right
+    -0.6, 1.2, -0.4,   # leg4 back-right
 ]
 
 # Height to spawn the base at. Natural standing height (straight legs) ~0.07 m,
@@ -87,7 +94,7 @@ def generate_launch_description():
         cmd=['ros2', 'topic', 'pub', '--rate', '10', '--times', '10',
              '/position_controller/commands',
              'std_msgs/msg/Float64MultiArray',
-             '{data: [' + ', '.join(str(a) for a in HOME_ANGLES) + ']}'],
+             '{data: [' + ', '.join(str(a) for a in SAFE_HOME_ANGLES) + ']}'],
         output='screen',
     )
 
