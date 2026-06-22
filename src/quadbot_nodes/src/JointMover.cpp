@@ -17,6 +17,9 @@
 #include "trajectory_msgs/msg/joint_trajectory.hpp"
 #include "trajectory_msgs/msg/joint_trajectory_point.hpp"
 
+// this is a comment from when i first transfered to the champquadbot proj first,  remeber before continuiing to know what sim to use, so that the slipping and exploding and twitching joints problems dont repeat again
+// search online for tutorials on custom quadrupeds first, then what to use and the phy.
+
 using namespace std::chrono_literals;
 
 class JointMover : public rclcpp::Node

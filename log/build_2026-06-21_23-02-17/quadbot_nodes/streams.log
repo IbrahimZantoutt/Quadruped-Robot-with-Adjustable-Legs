@@ -1,0 +1,37 @@
+[0.014s] Invoking command in '/home/ibrahim/Quadbot/build/quadbot_nodes': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ibrahim/RobotArm/install/main_arm_package:/home/ibrahim/RobotArm/install/action_interfaces:/opt/ros/humble /usr/bin/cmake --build /home/ibrahim/Quadbot/build/quadbot_nodes -- -j16 -l16
+[0.058s] [35m[1mConsolidate compiler generated dependencies of target JointMover[0m
+[0.077s] [ 50%] [32mBuilding CXX object CMakeFiles/JointMover.dir/src/JointMover.cpp.o[0m
+[3.573s] [100%] [32m[1mLinking CXX executable JointMover[0m
+[3.806s] [100%] Built target JointMover
+[3.817s] Invoked command in '/home/ibrahim/Quadbot/build/quadbot_nodes' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ibrahim/RobotArm/install/main_arm_package:/home/ibrahim/RobotArm/install/action_interfaces:/opt/ros/humble /usr/bin/cmake --build /home/ibrahim/Quadbot/build/quadbot_nodes -- -j16 -l16
+[3.829s] Invoking command in '/home/ibrahim/Quadbot/build/quadbot_nodes': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ibrahim/RobotArm/install/main_arm_package:/home/ibrahim/RobotArm/install/action_interfaces:/opt/ros/humble /usr/bin/cmake --install /home/ibrahim/Quadbot/build/quadbot_nodes
+[3.837s] -- Install configuration: ""
+[3.837s] -- Installing: /home/ibrahim/Quadbot/install/quadbot_nodes/lib/quadbot_nodes/JointMover
+[3.840s] -- Set runtime path of "/home/ibrahim/Quadbot/install/quadbot_nodes/lib/quadbot_nodes/JointMover" to ""
+[3.840s] -- Up-to-date: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/launch
+[3.840s] -- Up-to-date: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/launch/bringup.launch.py
+[3.840s] -- Installing: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/launch/display.launch.py
+[3.840s] -- Installing: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/launch/gazebo.launch.py
+[3.840s] -- Up-to-date: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/urdf
+[3.841s] -- Up-to-date: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/urdf/robot.urdf
+[3.841s] -- Up-to-date: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/rviz
+[3.841s] -- Installing: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/rviz/model.rviz
+[3.842s] -- Up-to-date: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/config
+[3.842s] -- Installing: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/config/test.yaml
+[3.843s] -- Up-to-date: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/config/quadbot_controllers.yaml
+[3.843s] -- Installing: /home/ibrahim/Quadbot/install/quadbot_nodes/share/ament_index/resource_index/package_run_dependencies/quadbot_nodes
+[3.843s] -- Installing: /home/ibrahim/Quadbot/install/quadbot_nodes/share/ament_index/resource_index/parent_prefix_path/quadbot_nodes
+[3.844s] -- Installing: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/environment/ament_prefix_path.sh
+[3.844s] -- Installing: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/environment/ament_prefix_path.dsv
+[3.844s] -- Installing: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/environment/path.sh
+[3.844s] -- Installing: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/environment/path.dsv
+[3.845s] -- Installing: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/local_setup.bash
+[3.845s] -- Installing: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/local_setup.sh
+[3.846s] -- Installing: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/local_setup.zsh
+[3.846s] -- Installing: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/local_setup.dsv
+[3.847s] -- Installing: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/package.dsv
+[3.847s] -- Installing: /home/ibrahim/Quadbot/install/quadbot_nodes/share/ament_index/resource_index/packages/quadbot_nodes
+[3.847s] -- Installing: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/cmake/quadbot_nodesConfig.cmake
+[3.847s] -- Installing: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/cmake/quadbot_nodesConfig-version.cmake
+[3.848s] -- Installing: /home/ibrahim/Quadbot/install/quadbot_nodes/share/quadbot_nodes/package.xml
+[3.852s] Invoked command in '/home/ibrahim/Quadbot/build/quadbot_nodes' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ibrahim/RobotArm/install/main_arm_package:/home/ibrahim/RobotArm/install/action_interfaces:/opt/ros/humble /usr/bin/cmake --install /home/ibrahim/Quadbot/build/quadbot_nodes
